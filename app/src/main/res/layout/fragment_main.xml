@@ -49,7 +49,7 @@
         android:textSize="20sp" />
 
     <ImageButton
-        android:id="@+id/continueGameButton"
+        android:id="@+id/selectPlayerButton"
         android:layout_width="136dp"
         android:layout_height="114dp"
         android:src="@drawable/continue_user" />

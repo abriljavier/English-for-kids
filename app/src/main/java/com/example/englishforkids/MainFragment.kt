@@ -27,6 +27,14 @@ class MainFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+        val selectPlayerButton = view.findViewById<ImageButton>(R.id.selectPlayerButton)
+        selectPlayerButton.setOnClickListener{
+            val selectPlayerFragment = SelectPlayerFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, selectPlayerFragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
         return view
     }

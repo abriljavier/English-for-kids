@@ -70,6 +70,54 @@ class Database(context: Context) :
         return db.insert("users", null, values)
     }
 
+    //DEVOLVER LA LISTA DE USUARIOS
+    fun getAllUsers(): List<User> {
+        val userList = mutableListOf<User>()
+        val query = "SELECT * FROM users"
+        val cursor = readableDatabase.rawQuery(query, null)
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(0)
+            val name = cursor.getString(1)
+            val score = cursor.getInt(2)
+            val idLevel = cursor.getInt(3)
+
+            val user = User(id, name, score, idLevel)
+            userList.add(user)
+        }
+        cursor.close()
+        return userList
+    }
+
+    //DEVOLVER UN USUARIO
+    fun getUserById(userId: Long): User? {
+        val db = readableDatabase
+        var user: User? = null
+
+        val cursor = db.query(
+            "users",
+            arrayOf("id", "name", "score", "idLevel"),
+            "id = ?",
+            arrayOf(userId.toString()),
+            null,
+            null,
+            null
+        )
+
+        if (cursor.moveToFirst()) {
+            val id = cursor.getLong(cursor.getColumnIndex("id"))
+            val name = cursor.getString(cursor.getColumnIndex("name"))
+            val score = cursor.getInt(cursor.getColumnIndex("score"))
+            val idLevel = cursor.getLong(cursor.getColumnIndex("idLevel"))
+
+            user = User(id, name, score, idLevel)
+        }
+
+        cursor.close()
+        db.close()
+
+        return user
+    }
+
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         TODO("Not yet implemented")
     }
