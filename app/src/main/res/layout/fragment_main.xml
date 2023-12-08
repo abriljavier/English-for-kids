@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_principal"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="50dp">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="215dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="WELCOME!"
+        android:textColor="@color/texto_principal"
+        android:textSize="34sp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="289dp"
+        android:layout_height="75dp"
+        android:gravity="center"
+        android:text="Please select one option!"
+        android:textColor="@color/texto_principal"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="Create new player"
+        android:textColor="@color/texto_principal"
+        android:textSize="20sp" />
+
+    <ImageButton
+        android:id="@+id/createPlayerButton"
+        android:layout_width="136dp"
+        android:layout_height="114dp"
+        android:src="@drawable/create_user" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="149dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="Continue"
+        android:textColor="@color/texto_principal"
+        android:textSize="20sp" />
+
+    <ImageButton
+        android:id="@+id/continueGameButton"
+        android:layout_width="136dp"
+        android:layout_height="114dp"
+        android:src="@drawable/continue_user" />
+
+</LinearLayout>
