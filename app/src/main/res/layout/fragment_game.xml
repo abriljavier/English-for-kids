@@ -1,6 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/fondo_principal">
+
+    <Button
+        android:id="@+id/saveBnt"
+        android:layout_width="85dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="583dp"
+        android:layout_marginEnd="285dp"
+        android:layout_marginBottom="80dp"
+        android:text="Exit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="85dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="285dp"
+        android:layout_marginTop="583dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="80dp"
+        android:text="Next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleOfCategory"
+        android:layout_width="329dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="619dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/image"
+        android:layout_width="207dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="102dp"
+        android:layout_marginTop="189dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="446dp"
+        android:text="Este es el recurso de imagen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/inputUsr"
+        android:layout_width="282dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="422dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="254dp"
+        android:ems="10"
+        android:hint="What is this?"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

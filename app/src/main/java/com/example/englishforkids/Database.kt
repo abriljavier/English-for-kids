@@ -88,34 +88,43 @@ class Database(context: Context) :
         return userList
     }
 
-    //DEVOLVER UN USUARIO
-    fun getUserById(userId: Long): User? {
+    //DEVOLVER UN NIVEL POR ID
+    fun getLevelById(levelId: Long): Level? {
         val db = readableDatabase
-        var user: User? = null
+        var level: Level? = null
 
         val cursor = db.query(
-            "users",
-            arrayOf("id", "name", "score", "idLevel"),
+            "levels",
+            arrayOf("id", "name", "category", "image"),
             "id = ?",
-            arrayOf(userId.toString()),
+            arrayOf(levelId.toString()),
             null,
             null,
             null
         )
 
-        if (cursor.moveToFirst()) {
-            val id = cursor.getLong(cursor.getColumnIndex("id"))
-            val name = cursor.getString(cursor.getColumnIndex("name"))
-            val score = cursor.getInt(cursor.getColumnIndex("score"))
-            val idLevel = cursor.getLong(cursor.getColumnIndex("idLevel"))
-
-            user = User(id, name, score, idLevel)
+        cursor.use {
+            if (it.moveToFirst()) {
+                level = Level(
+                    it.getInt(0),
+                    it.getString(1),
+                    it.getString(2),
+                    it.getString(3)
+                )
+            }
         }
 
-        cursor.close()
-        db.close()
+        return level
+    }
 
-        return user
+    //INCREMENTAR EL NIVEL DE UN USUARIO EN 1
+    fun incrementUserLevel(userId: Int): Int {
+        val db = writableDatabase
+        val contentValues = ContentValues().apply {
+            put("idLevel", "idLevel + 1")
+        }
+
+        return db.update("users", contentValues, "id = ?", arrayOf(userId.toString()))
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
