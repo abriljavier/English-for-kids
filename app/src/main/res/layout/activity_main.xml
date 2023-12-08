@@ -7,14 +7,7 @@
     android:background="@color/fondo_principal"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginBottom="667dp"
-        android:background="@color/toolbar_color"
-        app:title="English for kids!"
-        app:titleTextColor="@color/titulo_toolbar_color" />
+    <include layout="@layout/toolbar" />
 
     <ImageButton
         android:id="@+id/createPlayerButton"
