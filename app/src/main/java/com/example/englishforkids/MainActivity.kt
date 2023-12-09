@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
             // MOSTRAR EL MAIN FRAGMENT SI ES LA PRIMERA VEZ QUE SE ABRE LA APP
             val mainFragment = MainFragment()
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, mainFragment)
+                .replace(R.id.fragment_container, mainFragment, "mainFragment")
                 .commit()
         }
     }

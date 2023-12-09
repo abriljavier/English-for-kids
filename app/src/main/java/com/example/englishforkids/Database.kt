@@ -117,11 +117,11 @@ class Database(context: Context) :
         return level
     }
 
-    //INCREMENTAR EL NIVEL DE UN USUARIO EN 1
-    fun incrementUserLevel(userId: Int): Int {
+    //ACTUALIZAR EL LEVEL DE UN USUARIO POR ID
+    fun updateUserLevel(userId: Int, nextLevel: Int): Int {
         val db = writableDatabase
         val contentValues = ContentValues().apply {
-            put("idLevel", "idLevel + 1")
+            put("idLevel", nextLevel)
         }
 
         return db.update("users", contentValues, "id = ?", arrayOf(userId.toString()))

@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 
 class GameFragment(private val user: User) : Fragment() {
 
@@ -44,7 +45,7 @@ class GameFragment(private val user: User) : Fragment() {
             nextBtn.setOnClickListener{
                 if (inputUsr.text.toString() !=null && inputUsr.text.toString() !=""){
                     if (inputUsr.text.toString() == levelName){
-                        database.incrementUserLevel(user.id)
+                        database.updateUserLevel(user.id, levelId!!+1)
                         openNextLevel()
                     }
                 } else {
@@ -56,8 +57,8 @@ class GameFragment(private val user: User) : Fragment() {
             println("El nivel no existe.")
         }
 
-        saveExitBtn.setOnClickListener{
-            parentFragmentManager.popBackStack()
+        saveExitBtn.setOnClickListener {
+            parentFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
 
         return view
