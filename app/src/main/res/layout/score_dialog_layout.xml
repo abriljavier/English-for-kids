@@ -23,6 +23,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:fontFamily="@font/atma"
             android:text="Name of the player"
             android:textStyle="bold" />
 
@@ -32,6 +33,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:fontFamily="@font/atma"
             android:text="Score"
             android:textStyle="bold" />
     </LinearLayout>
@@ -44,6 +46,7 @@
         android:layout_marginTop="37dp"
         android:layout_marginEnd="58dp"
         android:layout_marginBottom="624dp"
+        android:fontFamily="@font/atma"
         android:gravity="center"
         android:text="Top players of the game"
         android:textSize="24sp"
@@ -72,13 +75,14 @@
         android:layout_marginTop="542dp"
         android:layout_marginEnd="116dp"
         android:layout_marginBottom="98dp"
-        android:backgroundTint="@color/boton_color"
+        android:backgroundTint="@color/toolbar_color_dark"
         android:text="Ok"
         android:textColor="@color/boton_texto_color"
         android:textColorHighlight="@color/boton_color"
         android:textColorLink="@color/boton_color"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:fontFamily="@font/atma"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

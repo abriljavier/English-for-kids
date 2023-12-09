@@ -14,12 +14,15 @@
         android:gravity="center"
         android:paddingBottom="80dp"
         android:text="CREATE A PLAYER"
-        android:textSize="24sp" />
+        android:fontFamily="@font/atma"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/atma"
         android:gravity="center"
         android:text="Name of the player"
         android:textSize="20sp" />
@@ -32,28 +35,31 @@
         android:gravity="center"
         android:hint="Enter here your name"
         android:inputType="text"
+        android:fontFamily="@font/atma"
         android:paddingTop="35dp"
         android:paddingBottom="35dp" />
 
     <LinearLayout
-        android:layout_width="290dp"
-        android:layout_height="117dp"
+        android:layout_width="361dp"
+        android:layout_height="172dp"
         android:orientation="horizontal"
         android:paddingTop="35dp">
 
         <ImageButton
             android:id="@+id/backButton"
             android:layout_width="146dp"
-            android:layout_height="75dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/back_arrow" />
+            android:backgroundTint="@color/fondo_principal"
+            android:src="@drawable/back_yellow" />
 
         <ImageButton
             android:id="@+id/createPlayer"
             android:layout_width="141dp"
-            android:layout_height="75dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@android:drawable/btn_star" />
+            android:backgroundTint="@color/fondo_principal"
+            android:src="@drawable/forward_yellow" />
     </LinearLayout>
 
 </LinearLayout>

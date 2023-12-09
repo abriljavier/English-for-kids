@@ -120,8 +120,9 @@ class Database(context: Context) :
     //ACTUALIZAR EL LEVEL Y LA PUNTUACIÓN DE UN USUARIO POR ID DE USER
     fun updateUserLevel(userId: Int, nextLevel: Int, newScore: Int): Int {
         val db = writableDatabase
+        val finalLevel = if (nextLevel > 16) 1 else nextLevel
         val contentValues = ContentValues().apply {
-            put("idLevel", nextLevel)
+            put("idLevel", finalLevel)
             put("score", newScore)
         }
 

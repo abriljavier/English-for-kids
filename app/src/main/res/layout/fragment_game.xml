@@ -8,31 +8,41 @@
 
     <Button
         android:id="@+id/saveBnt"
-        android:layout_width="85dp"
-        android:layout_height="68dp"
-        android:layout_marginStart="42dp"
+        android:layout_width="152dp"
+        android:layout_height="133dp"
+        android:layout_marginStart="41dp"
         android:layout_marginTop="583dp"
-        android:layout_marginEnd="285dp"
+        android:layout_marginEnd="258dp"
         android:layout_marginBottom="80dp"
-        android:text="Exit"
+        android:backgroundTint="@color/toolbar_color_dark"
+        android:text="Save and Exit"
+        android:textSize="24sp"
+        android:fontFamily="@font/atma"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.938" />
 
     <Button
         android:id="@+id/nextBtn"
-        android:layout_width="85dp"
-        android:layout_height="68dp"
-        android:layout_marginStart="285dp"
+        android:layout_width="152dp"
+        android:layout_height="133dp"
+        android:layout_marginStart="260dp"
         android:layout_marginTop="583dp"
-        android:layout_marginEnd="41dp"
+        android:layout_marginEnd="39dp"
         android:layout_marginBottom="80dp"
+        android:backgroundTint="@color/toolbar_color_dark"
         android:text="Next"
+        android:textSize="34sp"
+        android:fontFamily="@font/atma"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.923" />
 
     <TextView
         android:id="@+id/titleOfCategory"
@@ -44,6 +54,7 @@
         android:layout_marginBottom="587dp"
         android:gravity="center"
         android:text="TextView"
+        android:fontFamily="@font/atma"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,15 +63,18 @@
 
     <EditText
         android:id="@+id/inputUsr"
-        android:layout_width="282dp"
-        android:layout_height="55dp"
+        android:layout_width="323dp"
+        android:layout_height="84dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="422dp"
         android:layout_marginEnd="65dp"
         android:layout_marginBottom="254dp"
         android:ems="10"
+        android:gravity="center"
         android:hint="What is this?"
         android:inputType="text"
+        android:fontFamily="@font/atma"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,6 +88,7 @@
         android:layout_marginTop="174dp"
         android:layout_marginEnd="95dp"
         android:layout_marginBottom="348dp"
+        android:backgroundTint="@color/fondo_principal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,23 +96,14 @@
         app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
     <TextView
-        android:id="@+id/ayudaDebug"
-        android:layout_width="127dp"
-        android:layout_height="78dp"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="492dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/playerScore"
-        android:layout_width="338dp"
-        android:layout_height="65dp"
+        android:layout_width="341dp"
+        android:layout_height="73dp"
         android:layout_marginStart="38dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="650dp"
+        android:fontFamily="@font/atma"
         android:gravity="center"
         android:text="Player msdmsdadd you have an score of 1534 points"
         android:textSize="24sp"

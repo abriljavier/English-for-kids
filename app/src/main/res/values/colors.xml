@@ -4,7 +4,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Colores de fondo -->
-    <color name="fondo_principal">#FFF3E0</color> <!-- Amarillo suave -->
+    <color name="fondo_principal">#FFECCB</color> <!-- Amarillo suave -->
     <color name="toolbar_color">#4CAF50</color> <!-- Verde -->
     <color name="toolbar_color_dark">#388E3C</color> <!-- Verde oscuro -->
 
