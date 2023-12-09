@@ -14,9 +14,10 @@ class Database(context: Context) :
         private const val DATABASE_VERSION = 1
     }
 
+    //CREAR LA BBDD, LAS TABLAS E INTRODUCIR LEVELS
     override fun onCreate(db: SQLiteDatabase?) {
         //CREAR LA TABLA DE NIVELES
-        db?.execSQL("CREATE TABLE levels (id INTEGER PRIMARY KEY, name TEXT, category TEXT, image TEXT)")
+        db?.execSQL("CREATE TABLE levels (id INTEGER PRIMARY KEY, name TEXT, category TEXT)")
 
         //CREAR LA TABLA DE USUARIOS
         db?.execSQL(
@@ -25,28 +26,27 @@ class Database(context: Context) :
 
         //INSERTAR LOS NIVELES
         val defaultLevels = listOf(
-            Level(null, "circle", "SHAPES", "circle"),
-            Level(null, "square", "SHAPES", "square"),
-            Level(null, "triangle", "SHAPES", "triangle"),
-            Level(null, "rectangle", "SHAPES", "rectangle"),
-            Level(null, "star", "SHAPES", "star"),
-            Level(null, "car", "VEHICLES", "car"),
-            Level(null, "bicycle", "VEHICLES", "bicycle"),
-            Level(null, "boat", "VEHICLES", "boat"),
-            Level(null, "van", "VEHICLES", "van"),
-            Level(null, "motorbike", "VEHICLES", "motorbike"),
-            Level(null, "taxi", "VEHICLES", "taxi"),
-            Level(null, "cat", "ANIMALS", "cat"),
-            Level(null, "sheep", "ANIMALS", "sheep"),
-            Level(null, "lion", "ANIMALS", "lion"),
-            Level(null, "dog", "ANIMALS", "dog"),
-            Level(null, "elephant", "ANIMALS", "elephant"),
-            Level(null, "koala", "ANIMALS", "koala") )
+            Level(null, "circle", "SHAPES"),
+            Level(null, "square", "SHAPES"),
+            Level(null, "triangle", "SHAPES"),
+            Level(null, "rectangle", "SHAPES"),
+            Level(null, "star", "SHAPES"),
+            Level(null, "car", "VEHICLES"),
+            Level(null, "bicycle", "VEHICLES"),
+            Level(null, "boat", "VEHICLES"),
+            Level(null, "van", "VEHICLES"),
+            Level(null, "motorbike", "VEHICLES"),
+            Level(null, "taxi", "VEHICLES"),
+            Level(null, "cat", "ANIMALS"),
+            Level(null, "sheep", "ANIMALS"),
+            Level(null, "lion", "ANIMALS"),
+            Level(null, "dog", "ANIMALS"),
+            Level(null, "elephant", "ANIMALS"),
+            Level(null, "koala", "ANIMALS") )
         defaultLevels.forEach { level ->
                 val values = ContentValues().apply {
                     put("name", level.name)
                     put("category", level.category)
-                    put("image", level.image)
                 }
                 db?.insert("levels", null, values)
             }
@@ -70,6 +70,35 @@ class Database(context: Context) :
         return db.insert("users", null, values)
     }
 
+    //RECUPERAR LOS NOMBRES DE TODOS LOS USUARIOS PARA EL SPINNER
+    fun getAllUserNames(): List<String> {
+        val db = readableDatabase
+        val projection = arrayOf("name") // Columnas que deseas recuperar
+
+        // Puedes agregar condiciones adicionales si es necesario
+        val cursor = db.query(
+            "users", // Nombre de la tabla
+            projection, // Columnas que deseas recuperar
+            null, // Cláusula WHERE
+            null, // Valores para la cláusula WHERE
+            null, // GROUP BY
+            null, // HAVING
+            null  // ORDER BY
+        )
+
+        val userNames = mutableListOf<String>()
+
+        with(cursor) {
+            while (moveToNext()) {
+                val userName = getString(getColumnIndexOrThrow("name"))
+                userNames.add(userName)
+            }
+        }
+
+        cursor.close()
+        return userNames
+    }
+
     //DEVOLVER LA LISTA DE USUARIOS
     fun getAllUsers(): List<User> {
         val userList = mutableListOf<User>()
@@ -88,6 +117,17 @@ class Database(context: Context) :
         return userList
     }
 
+    //ACTUALIZAR EL LEVEL Y LA PUNTUACIÓN DE UN USUARIO POR ID DE USER
+    fun updateUserLevel(userId: Int, nextLevel: Int, newScore: Int): Int {
+        val db = writableDatabase
+        val contentValues = ContentValues().apply {
+            put("idLevel", nextLevel)
+            put("score", newScore)
+        }
+
+        return db.update("users", contentValues, "id = ?", arrayOf(userId.toString()))
+    }
+
     //DEVOLVER UN NIVEL POR ID
     fun getLevelById(levelId: Long): Level? {
         val db = readableDatabase
@@ -95,7 +135,7 @@ class Database(context: Context) :
 
         val cursor = db.query(
             "levels",
-            arrayOf("id", "name", "category", "image"),
+            arrayOf("id", "name", "category"),
             "id = ?",
             arrayOf(levelId.toString()),
             null,
@@ -109,22 +149,11 @@ class Database(context: Context) :
                     it.getInt(0),
                     it.getString(1),
                     it.getString(2),
-                    it.getString(3)
                 )
             }
         }
 
         return level
-    }
-
-    //ACTUALIZAR EL LEVEL DE UN USUARIO POR ID
-    fun updateUserLevel(userId: Int, nextLevel: Int): Int {
-        val db = writableDatabase
-        val contentValues = ContentValues().apply {
-            put("idLevel", nextLevel)
-        }
-
-        return db.update("users", contentValues, "id = ?", arrayOf(userId.toString()))
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

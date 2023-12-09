@@ -32,25 +32,32 @@ class CreatePlayerFragment : Fragment() {
         createButton.setOnClickListener {
             var nameOfTheNewPlayer =
                 view.findViewById<EditText>(R.id.PlayerNameInput).text.toString()
+            val database = Database(requireContext())
+            val userList = database.getAllUserNames()
             if (nameOfTheNewPlayer != "") {
-                val database = Database(requireContext())
-                val userId = database.addUser(nameOfTheNewPlayer, 0, 1)
-                if (userId != -1L) {
-                    Toast.makeText(
-                        context,
-                        "User created correctly!, welcome $nameOfTheNewPlayer",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                if (!userList.contains(nameOfTheNewPlayer)) {
+                    val database = Database(requireContext())
+                    val userId = database.addUser(nameOfTheNewPlayer, 0, 1)
+                    if (userId != -1L) {
+                        Toast.makeText(
+                            context,
+                            "User created correctly!, welcome $nameOfTheNewPlayer",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        database.close()
+                        parentFragmentManager.popBackStack()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "There is an error in the database, please try again",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     database.close()
-                    parentFragmentManager.popBackStack()
                 } else {
-                    Toast.makeText(
-                        context,
-                        "This username is not available! Try another",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(context, "This username is not available! Try another", Toast.LENGTH_SHORT)
+                        .show()
                 }
-                database.close()
             } else {
                 Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT)
                     .show()

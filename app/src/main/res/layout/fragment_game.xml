@@ -50,20 +50,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/image"
-        android:layout_width="207dp"
-        android:layout_height="96dp"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="189dp"
-        android:layout_marginEnd="102dp"
-        android:layout_marginBottom="446dp"
-        android:text="Este es el recurso de imagen"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/inputUsr"
         android:layout_width="282dp"
@@ -79,5 +65,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="222dp"
+        android:layout_height="209dp"
+        android:layout_marginStart="94dp"
+        android:layout_marginTop="174dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginBottom="348dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_mylocation" />
+
+    <TextView
+        android:id="@+id/ayudaDebug"
+        android:layout_width="127dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="142dp"
+        android:layout_marginTop="492dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="333dp"
+        android:layout_height="29dp"
+        android:text="Player msdmsdadd you ha"
+        tools:layout_editor_absoluteX="38dp"
+        tools:layout_editor_absoluteY="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

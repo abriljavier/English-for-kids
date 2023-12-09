@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import java.util.Locale
 
 class GameFragment(private val user: User) : Fragment() {
 
@@ -27,34 +29,47 @@ class GameFragment(private val user: User) : Fragment() {
 
         //LAS INSTANCIAS DE LOS OBJETOS DE LA VIEW
         var title = view.findViewById<TextView>(R.id.titleOfCategory)
-        var image = view.findViewById<TextView>(R.id.image)
+        var image = view.findViewById<ImageView>(R.id.image)
         var inputUsr = view.findViewById<EditText>(R.id.inputUsr)
+        var ayudaDebug = view.findViewById<TextView>(R.id.ayudaDebug)
 
         //LLAMO A LA INSTANCIA DE LA BBDD
         database = Database(requireContext())
-        var currentLevel: Level? = database.getLevelById(user.idLevel.toLong())
-        if (currentLevel != null) {
-            val levelId = currentLevel.id
-            val levelName = currentLevel.name
-            val levelCategory = currentLevel.category
-            val levelImage = currentLevel.image
-            //ASIGNAR LOS VALORES DE LOS OBJETOS DEL TEXTO AL NIVEL QUE ME TRAIGO DE LA BBDD
-            title.text = levelCategory
-            image.text = levelImage
-
-            nextBtn.setOnClickListener{
-                if (inputUsr.text.toString() !=null && inputUsr.text.toString() !=""){
-                    if (inputUsr.text.toString() == levelName){
-                        database.updateUserLevel(user.id, levelId!!+1)
-                        openNextLevel()
-                    }
-                } else {
-                    Toast.makeText(context, "You have to enter the word!", Toast.LENGTH_SHORT).show()
+        try {
+            var currentLevel: Level? = database.getLevelById(user.idLevel.toLong())
+            if (currentLevel != null) {
+                val levelId = currentLevel.id
+                val levelName = currentLevel.name
+                val levelCategory = currentLevel.category
+                //ASIGNAR LOS VALORES DE LOS OBJETOS DEL TEXTO AL NIVEL QUE ME TRAIGO DE LA BBDD
+                when(levelCategory){
+                    "SHAPES"->title.text = "1/3 $levelCategory"
+                    "VEHICLES"->title.text = "2/3 $levelCategory"
+                    "ANIMALS"->title.text = "3/3 $levelCategory"
                 }
-            }
+//                title.text = levelCategory
+                ayudaDebug.text = levelName
+                val imageResourceId = resources.getIdentifier(levelName, "drawable", requireContext().packageName)
+                println(imageResourceId)
+                image.setImageResource(imageResourceId)
+                nextBtn.setOnClickListener{
+                    if (inputUsr.text.toString() !=null && inputUsr.text.toString() !=""){
+                        if (inputUsr.text.toString().toLowerCase() == levelName){
+                            database.updateUserLevel(user.id, levelId!!+1, user.score+1)
+                            openNextLevel()
+                        } else {
+                            Toast.makeText(context, "Sorry, it's not correct, try again :D", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(context, "You have to enter the word!", Toast.LENGTH_SHORT).show()
+                    }
+                }
 
-        } else {
-            println("El nivel no existe.")
+            } else {
+                println("El nivel no existe.")
+            }
+        } finally {
+            database.close()
         }
 
         saveExitBtn.setOnClickListener {
@@ -65,6 +80,7 @@ class GameFragment(private val user: User) : Fragment() {
     }
 
     private fun openNextLevel() {
+        println("paso de nivel")
         val updatedUser = User(user.id, user.name, user.score, user.idLevel + 1)
         val nextGameFragment = GameFragment(updatedUser)
 
