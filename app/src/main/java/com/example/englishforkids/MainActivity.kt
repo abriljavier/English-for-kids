@@ -33,15 +33,25 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_about -> {
-                // Acción para "Acerca de la app"
-                Toast.makeText(this, "Acerca de la app", Toast.LENGTH_SHORT).show()
+                var aboutDialog = AboutDialog()
+                aboutDialog.show(supportFragmentManager, "AboutDialog")
                 return true
             }
+
             R.id.menu_high_scores -> {
-                // Acción para "Mejores puntuaciones"
-                Toast.makeText(this, "Mejores puntuaciones", Toast.LENGTH_SHORT).show()
+                //ABRIR MEJORES PUNTUACIONES
+                var database = Database(this)
+                try {
+                    database.writableDatabase
+                    var userList = database.getTopUsers()
+                    var scoreDialog = ScoreDialog(userList)
+                    scoreDialog.show(supportFragmentManager, "ScoreDialog")
+                } finally {
+                    database.close()
+                }
                 return true
             }
+
             else -> return super.onOptionsItemSelected(item)
         }
     }

@@ -31,6 +31,7 @@ class GameFragment(private val user: User) : Fragment() {
         var title = view.findViewById<TextView>(R.id.titleOfCategory)
         var image = view.findViewById<ImageView>(R.id.image)
         var inputUsr = view.findViewById<EditText>(R.id.inputUsr)
+        var playerScore = view.findViewById<TextView>(R.id.playerScore)
         var ayudaDebug = view.findViewById<TextView>(R.id.ayudaDebug)
 
         //LLAMO A LA INSTANCIA DE LA BBDD
@@ -47,7 +48,7 @@ class GameFragment(private val user: User) : Fragment() {
                     "VEHICLES"->title.text = "2/3 $levelCategory"
                     "ANIMALS"->title.text = "3/3 $levelCategory"
                 }
-//                title.text = levelCategory
+                playerScore.text = "${user.name} you have an score of ${user.score} points "
                 ayudaDebug.text = levelName
                 val imageResourceId = resources.getIdentifier(levelName, "drawable", requireContext().packageName)
                 println(imageResourceId)
@@ -81,7 +82,7 @@ class GameFragment(private val user: User) : Fragment() {
 
     private fun openNextLevel() {
         println("paso de nivel")
-        val updatedUser = User(user.id, user.name, user.score, user.idLevel + 1)
+        val updatedUser = User(user.id, user.name, user.score+1, user.idLevel + 1)
         val nextGameFragment = GameFragment(updatedUser)
 
         parentFragmentManager.beginTransaction()

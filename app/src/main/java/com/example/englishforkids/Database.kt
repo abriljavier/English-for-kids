@@ -128,6 +128,28 @@ class Database(context: Context) :
         return db.update("users", contentValues, "id = ?", arrayOf(userId.toString()))
     }
 
+    //DEVOLVER LISTA DE USUARIOS POR PUNTUACIÓN MÁXIMO DIEZ
+    fun getTopUsers(): List<User> {
+        val db = readableDatabase
+        val users = mutableListOf<User>()
+
+        val query = "SELECT * FROM users ORDER BY score DESC LIMIT 10"
+        val cursor = db.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(0)
+            val name = cursor.getString(1)
+            val score = cursor.getInt(2)
+            val idLevel = cursor.getInt(3)
+
+            val user = User(id, name, score, idLevel)
+            users.add(user)
+        }
+
+        cursor.close()
+        return users
+    }
+
     //DEVOLVER UN NIVEL POR ID
     fun getLevelById(levelId: Long): Level? {
         val db = readableDatabase
