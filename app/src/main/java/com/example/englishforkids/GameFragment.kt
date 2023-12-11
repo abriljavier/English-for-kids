@@ -36,32 +36,40 @@ class GameFragment(private val user: User) : Fragment() {
         //LLAMO A LA INSTANCIA DE LA BBDD
         database = Database(requireContext())
         try {
+            //TRAETE UN NIVEL EN REFERENCIA AL USUARIO QUE SE TE PASA AL CREAR EL FRAGMENT
             var currentLevel: Level? = database.getLevelById(user.idLevel.toLong())
             if (currentLevel != null) {
+                //ASIGNA CADA UNO DE LOS TEXTVIEW
                 val levelId = currentLevel.id
                 val levelName = currentLevel.name
                 val levelCategory = currentLevel.category
                 //AVISAR CUANDO CAMBIA DE CATEGORIA
-                if (levelId==6 || levelId==12){
+                if (levelId==7 || levelId==13){
                     Toast.makeText(context, "Congrats! you advance one category!", Toast.LENGTH_SHORT).show()
                 } else if (levelId == 1){
                     Toast.makeText(context, "Time to start the game!", Toast.LENGTH_SHORT).show()
                 }
-                //ASIGNAR LOS VALORES DE LOS OBJETOS DEL TEXTO AL NIVEL QUE ME TRAIGO DE LA BBDD
+                //ASIGNAR EL TÍTULO Y EL SCORE
                 when(levelCategory){
-                    "SHAPES"->title.text = "1/3 $levelCategory"
-                    "VEHICLES"->title.text = "2/3 $levelCategory"
-                    "ANIMALS"->title.text = "3/3 $levelCategory"
+                    "SHAPES"->title.text = "1/3 $levelCategory - EASY"
+                    "VEHICLES"->title.text = "3/3 $levelCategory - HARD"
+                    "ANIMALS"->title.text = "2/3 $levelCategory - MEDIUM"
                 }
                 playerScore.text = "${user.name} you have a score of ${user.score} points "
+
+                //CONVERTIR LA STRING QUE VIENE POR LA BBDD A UN RECURSO DE IMAGEN
                 val imageResourceId = resources.getIdentifier(levelName, "drawable", requireContext().packageName)
                 image.setImageResource(imageResourceId)
+
                 nextBtn.setOnClickListener{
+                    //VALIDACIONES
                     if (inputUsr.text.toString() !=null && inputUsr.text.toString() !=""){
                         if (inputUsr.text.toString().toLowerCase() == levelName){
+                            //ACTUALIZAS EL USER DE LA BBDD
                             database.updateUserLevel(user.id, levelId!!+1, user.score+1)
                             Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT).show()
-                            if (user.idLevel==16){
+                            //SI ES EL ÚLTIMO NIVEL MUESTRA EL DIALOG Y EN CUALQUIER CASO ABRE EL SIGUIENTE
+                            if (user.idLevel==18){
                                 showGameWonDialog()
                             }
                             openNextLevel()
@@ -78,6 +86,7 @@ class GameFragment(private val user: User) : Fragment() {
             database.close()
         }
 
+        //SI QUIERES SALIR TE MANDA DIRECTO AL PRIMER FRAGMENT
         saveExitBtn.setOnClickListener {
             parentFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
@@ -86,8 +95,12 @@ class GameFragment(private val user: User) : Fragment() {
     }
 
     private fun openNextLevel() {
-        val newLevel = if (user.idLevel < 16) user.idLevel + 1 else 1
+        //CONFIGURA EL USER PARA EL SIGUIENTE FRAGMENT
+        //SI EL LEVEL ES < 18 AUMENTA EN 1, SI NO, LEVEL=1
+        val newLevel = if (user.idLevel < 18) user.idLevel + 1 else 1
+        //Y DE PASO ACTUALIZAS LA QUERY
         val updatedUser = User(user.id, user.name, user.score + 1, newLevel)
+        //LE LLAMAS A SI MISMO
         val nextGameFragment = GameFragment(updatedUser)
 
         parentFragmentManager.beginTransaction()

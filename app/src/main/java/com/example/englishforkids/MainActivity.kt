@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //LA ASIGNACIÓN E INFLATE DEL MENÚ
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
@@ -32,14 +33,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            //ABRIR EL DIALOGO DE SABER MÁS
             R.id.menu_about -> {
                 var aboutDialog = AboutDialog()
                 aboutDialog.show(supportFragmentManager, "AboutDialog")
                 return true
             }
 
+            //ABRIR EL DIALOGO DE PUNTUACIONES
             R.id.menu_high_scores -> {
-                //ABRIR MEJORES PUNTUACIONES
                 var database = Database(this)
                 try {
                     database.writableDatabase

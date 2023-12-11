@@ -31,18 +31,20 @@ class Database(context: Context) :
             Level(null, "triangle", "SHAPES"),
             Level(null, "rectangle", "SHAPES"),
             Level(null, "star", "SHAPES"),
+            Level(null, "heart", "SHAPES"),
+            Level(null, "cat", "ANIMALS"),
+            Level(null, "sheep", "ANIMALS"),
+            Level(null, "lion", "ANIMALS"),
+            Level(null, "dog", "ANIMALS"),
+            Level(null, "elephant", "ANIMALS"),
+            Level(null, "koala", "ANIMALS"),
             Level(null, "car", "VEHICLES"),
             Level(null, "bicycle", "VEHICLES"),
             Level(null, "boat", "VEHICLES"),
             Level(null, "van", "VEHICLES"),
             Level(null, "motorbike", "VEHICLES"),
             Level(null, "taxi", "VEHICLES"),
-            Level(null, "cat", "ANIMALS"),
-            Level(null, "sheep", "ANIMALS"),
-            Level(null, "lion", "ANIMALS"),
-            Level(null, "dog", "ANIMALS"),
-            Level(null, "elephant", "ANIMALS"),
-            Level(null, "koala", "ANIMALS") )
+             )
         defaultLevels.forEach { level ->
                 val values = ContentValues().apply {
                     put("name", level.name)
@@ -50,15 +52,9 @@ class Database(context: Context) :
                 }
                 db?.insert("levels", null, values)
             }
-
-        val cursor = db?.rawQuery("SELECT * FROM levels", null)
-        if (cursor != null) {
-            Log.d("Database", "Number of rows in 'levels': ${cursor.count}")
-            cursor.close()
-        }
     }
 
-    //INSERTAR USUARIO
+    //INSERTAR USUARIO DADOS SUS DATOS
     fun addUser(name: String, score: Int, idLevel: Int): Long {
         val db = writableDatabase
         val values = ContentValues().apply {
@@ -73,17 +69,16 @@ class Database(context: Context) :
     //RECUPERAR LOS NOMBRES DE TODOS LOS USUARIOS PARA EL SPINNER
     fun getAllUserNames(): List<String> {
         val db = readableDatabase
-        val projection = arrayOf("name") // Columnas que deseas recuperar
+        val projection = arrayOf("name")
 
-        // Puedes agregar condiciones adicionales si es necesario
         val cursor = db.query(
-            "users", // Nombre de la tabla
-            projection, // Columnas que deseas recuperar
-            null, // Cláusula WHERE
-            null, // Valores para la cláusula WHERE
-            null, // GROUP BY
-            null, // HAVING
-            null  // ORDER BY
+            "users",
+            projection,
+            null,
+            null,
+            null,
+            null,
+            null
         )
 
         val userNames = mutableListOf<String>()
@@ -102,8 +97,10 @@ class Database(context: Context) :
     //DEVOLVER LA LISTA DE USUARIOS
     fun getAllUsers(): List<User> {
         val userList = mutableListOf<User>()
-        val query = "SELECT * FROM users"
-        val cursor = readableDatabase.rawQuery(query, null)
+
+        val columns = arrayOf("id", "name", "score", "idLevel")
+        val cursor = readableDatabase.query("users", columns, null, null, null, null, null)
+
         while (cursor.moveToNext()) {
             val id = cursor.getInt(0)
             val name = cursor.getString(1)
@@ -113,6 +110,7 @@ class Database(context: Context) :
             val user = User(id, name, score, idLevel)
             userList.add(user)
         }
+
         cursor.close()
         return userList
     }
@@ -120,7 +118,7 @@ class Database(context: Context) :
     //ACTUALIZAR EL LEVEL Y LA PUNTUACIÓN DE UN USUARIO POR ID DE USER
     fun updateUserLevel(userId: Int, nextLevel: Int, newScore: Int): Int {
         val db = writableDatabase
-        val finalLevel = if (nextLevel > 16) 1 else nextLevel
+        val finalLevel = if (nextLevel > 18) 1 else nextLevel
         val contentValues = ContentValues().apply {
             put("idLevel", finalLevel)
             put("score", newScore)

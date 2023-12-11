@@ -27,8 +27,10 @@ class MainFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+        //BOTÓN PARA SELECCIONAR JUGADOR
         val selectPlayerButton = view.findViewById<ImageButton>(R.id.selectPlayerButton)
         selectPlayerButton.setOnClickListener{
+            //FRAGMENT DE SELECCIONAR JUGADOR
             val selectPlayerFragment = SelectPlayerFragment()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, selectPlayerFragment)

@@ -32,12 +32,16 @@ class CreatePlayerFragment : Fragment() {
         createButton.setOnClickListener {
             var nameOfTheNewPlayer =
                 view.findViewById<EditText>(R.id.PlayerNameInput).text.toString()
+            //LLAMO A LA DATABASE PARA PEDIR LOS NOMBRES DE LOS USUARIOS
             val database = Database(requireContext())
+            //ME TRAIGO EL LISTADO DE USERS PARA COMPROBAR QUE NO SE REPITA
             val userList = database.getAllUserNames()
+            //VALIDACIONES
             if (nameOfTheNewPlayer != "") {
                 if (nameOfTheNewPlayer.length<10) {
                     if (!userList.contains(nameOfTheNewPlayer)) {
                         val database = Database(requireContext())
+                        //HAGO LA QUERY DE INSERTAR
                         val userId = database.addUser(nameOfTheNewPlayer, 0, 1)
                         if (userId != -1L) {
                             Toast.makeText(
